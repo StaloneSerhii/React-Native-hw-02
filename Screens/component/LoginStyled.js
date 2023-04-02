@@ -1,7 +1,10 @@
 import { StyleSheet } from "react-native";
+import { loadFonts } from "./RegistrationScreen";
+
 export const style = StyleSheet.create({
   container: {
     flex: 1,
+    fontFamily: "Roboto-Regulat",
   },
   image: {
     flex: 1,
@@ -26,6 +29,7 @@ export const style = StyleSheet.create({
   },
   form: {},
   textRegister: {
+    fontFamily: "Roboto-Regulat",
     textAlign: "center",
     paddingBottom: 33,
     paddingTop: 33,
@@ -43,6 +47,7 @@ export const style = StyleSheet.create({
     justifyContent: "center",
   },
   Register: {
+    fontFamily: "Roboto-Regulat",
     fontSize: 16,
     color: "#fff",
     fontWeight: 400,
@@ -53,11 +58,13 @@ export const style = StyleSheet.create({
     justifyContent: "center",
   },
   Exit: {
+    fontFamily: "Roboto-Regulat",
     fontSize: 16,
     fontWeight: 400,
     color: "#1B4371",
   },
   openPass: {
+    fontFamily: "Roboto-Regulat",
     position: "absolute",
     top: 180,
     right: 30,

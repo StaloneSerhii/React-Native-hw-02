@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { style } from "./RegisterScreenStyle";
 import Svg, { Circle, Path } from "react-native-svg";
-
+import AppLoading from "expo-app-loading";
+import * as Font from "expo-font";
 import {
   ImageBackground,
   Text,
@@ -20,10 +21,18 @@ const initialState = {
   password: "",
 };
 
+export const loadFonts = async () => {
+  await Font.loadAsync({
+    "Roboto-Regulat": require("./font/Roboto-Regular.ttf"),
+    "Roboto-Bold": require("./font/Roboto-Bold.ttf"),
+  });
+};
+
 export const RegistrationScreen = () => {
   const [focusInput, setFocusInput] = useState(false);
   const [secureText, setSecureTextEntry] = useState(true);
   const [inputValue, setInputValue] = useState(initialState);
+  const [isReady, setIsReady] = useState(false);
   const secureTexts = () => {
     if (secureText) {
       setSecureTextEntry(false);
@@ -39,9 +48,19 @@ export const RegistrationScreen = () => {
   const registerSub = () => {
     setFocusInput(false);
     Keyboard.dismiss();
+    console.log(inputValue);
     setInputValue(initialState);
   };
 
+  if (!isReady) {
+    return (
+      <AppLoading
+        startAsync={loadFonts}
+        onFinish={() => setIsReady(true)}
+        onError={console.warn}
+      />
+    );
+  }
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={style.container}>

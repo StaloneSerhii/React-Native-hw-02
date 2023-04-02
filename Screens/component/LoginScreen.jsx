@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { style } from "./LoginStyled";
+import AppLoading from "expo-app-loading";
+import * as Font from "expo-font";
+import { loadFonts } from "./RegistrationScreen";
 import {
   ImageBackground,
   Text,
@@ -12,10 +15,16 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
+const initialState = {
+  email: "",
+  password: "",
+};
+
 export const LoginScreen = () => {
+  const [inputValue, setInputValue] = useState(initialState);
   const [focusInput, setFocusInput] = useState(false);
   const [secureText, setSecureTextEntry] = useState(true);
-  // const [keyboardStatus, setKeyboardStatus] = useState(false);
+  const [isReady, setIsReady] = useState(false);
   const keyboardHide = () => {
     setFocusInput(false);
     Keyboard.dismiss();
@@ -31,16 +40,23 @@ export const LoginScreen = () => {
     return true;
   };
 
-  //   useEffect(() => {
-  //     const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
-  //       setKeyboardStatus(true);
-  //     });
+  const enterSub = () => {
+    setFocusInput(false);
+    Keyboard.dismiss();
+    console.log(inputValue);
+    setInputValue(initialState);
+  };
 
-  //     const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
-  //       setKeyboardStatus(false);
-  //     });
-  //   });
-  // console.log(keyboardStatus);
+  if (!isReady) {
+    return (
+      <AppLoading
+        startAsync={loadFonts}
+        onFinish={() => setIsReady(true)}
+        onError={console.warn}
+      />
+    );
+  }
+
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={style.container}>
@@ -53,15 +69,29 @@ export const LoginScreen = () => {
                 <View style={style.marginKeyBoard}>
                   <Text style={style.textRegister}>Ввійти</Text>
                   <TextInput
+                    value={inputValue.email}
                     style={style.input}
                     onFocus={() => setFocusInput(true)}
                     placeholder="Електрона адреса"
+                    onChangeText={(value) => {
+                      setInputValue((prevState) => ({
+                        ...prevState,
+                        email: value,
+                      }));
+                    }}
                   />
                   <TextInput
+                    value={inputValue.password}
                     style={style.input}
                     placeholder="Пароль"
                     secureTextEntry={secureText}
                     onFocus={() => setFocusInput(true)}
+                    onChangeText={(value) => {
+                      setInputValue((prevState) => ({
+                        ...prevState,
+                        password: value,
+                      }));
+                    }}
                   />
                   <TouchableOpacity
                     onPress={keyboardHide}
@@ -82,7 +112,7 @@ export const LoginScreen = () => {
                 }}
               >
                 <TouchableOpacity
-                  onPress={keyboardHide}
+                  onPress={enterSub}
                   activeOpacity={0.8}
                   style={style.btnRegister}
                 >
