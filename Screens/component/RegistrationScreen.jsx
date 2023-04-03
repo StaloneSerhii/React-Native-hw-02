@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { style } from "./RegisterScreenStyle";
 import Svg, { Circle, Path } from "react-native-svg";
-import AppLoading from "expo-app-loading";
-import * as Font from "expo-font";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 import {
   ImageBackground,
   Text,
@@ -21,18 +21,27 @@ const initialState = {
   password: "",
 };
 
-export const loadFonts = async () => {
-  await Font.loadAsync({
-    "Roboto-Regulat": require("./font/Roboto-Regular.ttf"),
-    "Roboto-Bold": require("./font/Roboto-Bold.ttf"),
-  });
-};
+SplashScreen.preventAutoHideAsync();
 
 export const RegistrationScreen = () => {
   const [focusInput, setFocusInput] = useState(false);
   const [secureText, setSecureTextEntry] = useState(true);
   const [inputValue, setInputValue] = useState(initialState);
-  const [isReady, setIsReady] = useState(false);
+  const [fontsLoaded] = useFonts({
+    "Roboto-Bold": require("./font/Roboto-Bold.ttf"),
+    "Roboto-Regular": require("./font/Roboto-Regular.ttf"),
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   const secureTexts = () => {
     if (secureText) {
       setSecureTextEntry(false);
@@ -52,15 +61,6 @@ export const RegistrationScreen = () => {
     setInputValue(initialState);
   };
 
-  if (!isReady) {
-    return (
-      <AppLoading
-        startAsync={loadFonts}
-        onFinish={() => setIsReady(true)}
-        onError={console.warn}
-      />
-    );
-  }
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={style.container}>
@@ -95,8 +95,15 @@ export const RegistrationScreen = () => {
               <KeyboardAvoidingView
                 behavior={Platform.OS == "ios" ? "padding" : "height"}
               >
-                <View style={style.marginKeyBoard}>
-                  <Text style={style.textRegister}>Реєстрація</Text>
+                <View style={style.marginKeyBoard} onLayout={onLayoutRootView}>
+                  <Text
+                    style={{
+                      ...style.textRegister,
+                      fontFamily: "Roboto-Regular",
+                    }}
+                  >
+                    Реєстрація
+                  </Text>
                   <TextInput
                     style={style.input}
                     value={inputValue.login}
@@ -110,7 +117,10 @@ export const RegistrationScreen = () => {
                     }}
                   />
                   <TextInput
-                    style={style.input}
+                    style={{
+                      ...style.input,
+                      fontFamily: "Roboto-Regular",
+                    }}
                     value={inputValue.email}
                     onFocus={() => setFocusInput(true)}
                     placeholder="Електрона адреса"
@@ -122,7 +132,10 @@ export const RegistrationScreen = () => {
                     }}
                   />
                   <TextInput
-                    style={style.input}
+                    style={{
+                      ...style.input,
+                      fontFamily: "Roboto-Regular",
+                    }}
                     value={inputValue.password}
                     placeholder="Пароль"
                     secureTextEntry={secureText}
@@ -140,7 +153,14 @@ export const RegistrationScreen = () => {
                     onShowUnderlay
                     style={style.openPass}
                   >
-                    <Text style={style.Exit}>Показати</Text>
+                    <Text
+                      style={{
+                        ...style.Exit,
+                        fontFamily: "Roboto-Regular",
+                      }}
+                    >
+                      Показати
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </KeyboardAvoidingView>
@@ -155,7 +175,14 @@ export const RegistrationScreen = () => {
                   activeOpacity={0.8}
                   style={style.btnRegister}
                 >
-                  <Text style={style.Register}>Зареєструвається</Text>
+                  <Text
+                    style={{
+                      ...style.Register,
+                      fontFamily: "Roboto-Regular",
+                    }}
+                  >
+                    Зареєструвається
+                  </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={keyboardHide}
@@ -167,7 +194,10 @@ export const RegistrationScreen = () => {
                     onPress={() => {
                       setFocusInput(false);
                     }}
-                    style={style.Exit}
+                    style={{
+                      ...style.Exit,
+                      fontFamily: "Roboto-Regular",
+                    }}
                   >
                     Вже є акаунт? Увійти
                   </Text>

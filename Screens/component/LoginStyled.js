@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { loadFonts } from "./RegistrationScreen";
 
 export const style = StyleSheet.create({
   container: {
