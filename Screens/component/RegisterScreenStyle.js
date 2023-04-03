@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { loadFonts } from "./RegistrationScreen";
+
 export const style = StyleSheet.create({
   container: {
     flex: 1,
@@ -29,7 +29,7 @@ export const style = StyleSheet.create({
     color: "#000",
     fontSize: 20,
     padding: 8,
-    fontFamily: "Roboto-Regulat",
+    // fontFamily: "Roboto-Regulat",
   },
   formBack: {
     borderTopStartRadius: 25,
@@ -37,12 +37,12 @@ export const style = StyleSheet.create({
     backgroundColor: "#fff",
   },
   textRegister: {
-    fontFamily: "Roboto-Regulat",
+    // fontFamily: "Roboto-Regulat",
     paddingTop: 80,
     textAlign: "center",
     marginBottom: 33,
     fontSize: 30,
-    fontWeight: 500,
+
     color: "#212121",
     letterSpacing: 0.01,
   },
@@ -55,34 +55,31 @@ export const style = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     lineHeight: 35,
-    fontFamily: "Roboto-Regulat",
+    // fontFamily: "Roboto-Regulat",
   },
   Register: {
     fontSize: 16,
     color: "#fff",
-    fontWeight: 400,
-    fontFamily: "Roboto-Regulat",
+    // fontFamily: "Roboto-Regulat",
   },
   btnExit: {
     marginTop: 16,
     alignItems: "center",
     justifyContent: "center",
-    fontFamily: "Roboto-Regulat",
+    // fontFamily: "Roboto-Regulat",
   },
   Exit: {
     fontSize: 16,
-    fontWeight: 400,
     color: "#1B4371",
     marginBottom: 66,
-    fontFamily: "Roboto-Regulat",
+    // fontFamily: "Roboto-Regulat",
   },
   openPass: {
     position: "absolute",
     top: 290,
     right: 30,
     fontSize: 16,
-    fontWeight: 400,
-    fontFamily: "Roboto-Regulat",
+    // fontFamily: "Roboto-Regulat",
   },
   addAvatar: {
     position: "absolute",

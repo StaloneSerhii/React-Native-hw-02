@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { style } from "./LoginStyled";
 import AppLoading from "expo-app-loading";
-import * as Font from "expo-font";
 import { loadFonts } from "./RegistrationScreen";
 import {
   ImageBackground,
