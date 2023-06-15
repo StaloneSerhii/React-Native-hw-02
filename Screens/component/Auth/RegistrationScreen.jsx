@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
-import { style } from "./LoginStyled";
+import { style } from "./RegisterScreenStyle";
+import Svg, { Circle, Path } from "react-native-svg";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import {
@@ -13,21 +14,26 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const initialState = {
   email: "",
+  login: "",
   password: "",
 };
 
-export const LoginScreen = () => {
-  const [inputValue, setInputValue] = useState(initialState);
+SplashScreen.preventAutoHideAsync();
+
+export const RegistrationScreen = () => {
+  const navigator = useNavigation()
   const [focusInput, setFocusInput] = useState(false);
   const [secureText, setSecureTextEntry] = useState(true);
-  const [isReady, setIsReady] = useState(false);
+  const [inputValue, setInputValue] = useState(initialState);
   const [fontsLoaded] = useFonts({
-    "Roboto-Bold": require("./font/Roboto-Bold.ttf"),
-    "Roboto-Regular": require("./font/Roboto-Regular.ttf"),
+    "Roboto-Bold": require("../font/Roboto-Bold.ttf"),
+    "Roboto-Regular": require("../font/Roboto-Regular.ttf"),
   });
+
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
@@ -38,22 +44,19 @@ export const LoginScreen = () => {
     return null;
   }
 
+  const secureTexts = () => {
+    if (secureText) {
+      setSecureTextEntry(false);
+      return false;
+    }
+    setSecureTextEntry(true);
+    return true;
+  };
   const keyboardHide = () => {
     setFocusInput(false);
     Keyboard.dismiss();
   };
-  const secureTexts = () => {
-    if (secureText) {
-      console.log("click false");
-      setSecureTextEntry(false);
-      return false;
-    }
-    console.log("click true");
-    setSecureTextEntry(true);
-    return true;
-  };
-
-  const enterSub = () => {
+  const registerSub = () => {
     setFocusInput(false);
     Keyboard.dismiss();
     console.log(inputValue);
@@ -63,27 +66,64 @@ export const LoginScreen = () => {
   return (
     <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={style.container}>
-        <ImageBackground style={style.image} source={require("./BG.png")}>
+        <ImageBackground style={style.image} source={require("../img/BG.png")}>
+          <View style={style.avatar}>
+            <TouchableOpacity style={style.addAvatar} activeOpacity={0.8}>
+              <Svg
+                width="25"
+                height="25"
+                viewBox="0 0 25 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <Circle
+                  cx="12.5"
+                  cy="12.5"
+                  r="12"
+                  fill="white"
+                  stroke="#FF6C00"
+                />
+                <Path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M13 6H12V12H6V13H12V19H13V13H19V12H13V6Z"
+                  fill="#FF6C00"
+                />
+              </Svg>
+            </TouchableOpacity>
+          </View>
           <View style={style.formBack}>
             <View style={style.form}>
               <KeyboardAvoidingView
                 behavior={Platform.OS == "ios" ? "padding" : "height"}
               >
-                <View style={style.marginKeyBoard}>
+                <View style={style.marginKeyBoard} onLayout={onLayoutRootView}>
                   <Text
                     style={{
                       ...style.textRegister,
                       fontFamily: "Roboto-Regular",
                     }}
                   >
-                    Ввійти
+                    Реєстрація
                   </Text>
                   <TextInput
-                    value={inputValue.email}
+                    style={style.input}
+                    value={inputValue.login}
+                    placeholder="Логін"
+                    onFocus={() => setFocusInput(true)}
+                    onChangeText={(value) => {
+                      setInputValue((prevState) => ({
+                        ...prevState,
+                        login: value,
+                      }));
+                    }}
+                  />
+                  <TextInput
                     style={{
                       ...style.input,
                       fontFamily: "Roboto-Regular",
                     }}
+                    value={inputValue.email}
                     onFocus={() => setFocusInput(true)}
                     placeholder="Електрона адреса"
                     onChangeText={(value) => {
@@ -94,11 +134,11 @@ export const LoginScreen = () => {
                     }}
                   />
                   <TextInput
-                    value={inputValue.password}
                     style={{
                       ...style.input,
                       fontFamily: "Roboto-Regular",
                     }}
+                    value={inputValue.password}
                     placeholder="Пароль"
                     secureTextEntry={secureText}
                     onFocus={() => setFocusInput(true)}
@@ -110,13 +150,12 @@ export const LoginScreen = () => {
                     }}
                   />
                   <TouchableOpacity
-                    onPress={keyboardHide}
+                    onPress={secureTexts}
                     activeOpacity={0.5}
                     onShowUnderlay
                     style={style.openPass}
                   >
                     <Text
-                      onPress={secureTexts}
                       style={{
                         ...style.Exit,
                         fontFamily: "Roboto-Regular",
@@ -134,7 +173,7 @@ export const LoginScreen = () => {
                 }}
               >
                 <TouchableOpacity
-                  onPress={enterSub}
+                  onPress={registerSub}
                   activeOpacity={0.8}
                   style={style.btnRegister}
                 >
@@ -144,7 +183,7 @@ export const LoginScreen = () => {
                       fontFamily: "Roboto-Regular",
                     }}
                   >
-                    Ввійти
+                    Зареєструвається
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -153,13 +192,14 @@ export const LoginScreen = () => {
                   onShowUnderlay
                   style={style.btnExit}
                 >
-                  <Text
+                   <Text
+                  onPress={()=> navigator.navigate("Login")}
                     style={{
                       ...style.Exit,
                       fontFamily: "Roboto-Regular",
                     }}
                   >
-                    Нема акаунт? Зареєструватися
+                     Вже є акаунт? Увійти
                   </Text>
                 </TouchableOpacity>
               </View>
