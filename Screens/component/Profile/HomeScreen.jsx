@@ -2,24 +2,29 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
 import styles from "./HomeStyled";
+import { useNavigation } from "@react-navigation/native";
 
 export const HomeScreen = () => {
+  const navigator = useNavigation()
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Публікації</Text>
-        <Text style={styles.logout}>Exit</Text>
+        <Image style={styles.logout} source={require("../img/log-out.png")} />
       </View>
-      <View>
-        <Image source={require("../img/avatar.png")} /><Text>
-          Natalia Romanovna
-        </Text>
-        <Text>email@mail.com</Text>
+      <View style={styles.user}>
+        <Image source={require("../img/avatar.png")} />
+        <View>
+          <Text>
+            Natalia Romanovna
+          </Text>
+          <Text>email@mail.com</Text>
+        </View>
       </View>
-      <View>
-        <Text>home</Text>
-        <Text>+</Text>
-        <Text>Pep</Text>
+      <View style={styles.downScreen}>
+        <Image source={require("../img/grid.png")} />
+        <Text  style={styles.addPic} onPress={()=>{navigator.navigate("CreatePostsScreen")}}>+</Text>
+        <Image source={require("../img/user.png")} />
       </View>
     </View>
   );

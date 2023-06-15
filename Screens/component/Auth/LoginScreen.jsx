@@ -149,7 +149,7 @@ export const LoginScreen = () => {
                   style={style.btnExit}
                 >
                   <Text
-                  onPress={()=> navigator.navigate("RegisterScreen")}
+                  onPress={()=> navigator.navigate("Register")}
                     style={{
                       ...style.Exit,
                       fontFamily: "Roboto-Regular",
