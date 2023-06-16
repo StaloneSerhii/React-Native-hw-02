@@ -1,34 +1,55 @@
 // Home.js
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
 import styles from "./CreatePostsStyle";
 import { useNavigation } from "@react-navigation/native";
-
+import { ScrollView } from "react-native-gesture-handler";
 
 export const CreatePostsScreen = () => {
-    const navigator = useNavigation()
-    return (
-        <View style={styles.bg}>
-            <View>
-                <Text style={styles.header}>Створити Публікацію</Text>
-                <View style={styles.content}>
-                    <View style={styles.upLoadFoto}>
-                        <Image source={require("../img/foto.png")} />
+  const [data, setData] = useState({
+    foto: "",
+    name: "",
+    location: "",
+  });
 
-                    </View>
+  return (
+    <ScrollView style={styles.bg}>
+      <View>
+        <View style={styles.content}>
+          <View style={styles.upLoadFoto}>
+            <Image source={require("../img/foto.png")} />
+          </View>
 
-                    <Text style={styles.textFoto}>
-                        Завантажити фото
-                    </Text>
-                    <TextInput style={styles.inputCreate} placeholder="Назва..." />
-                    <TextInput style={styles.inputCreate} placeholder="Місцевість..." />
-                    <TouchableOpacity style={styles.btnExit}><Text style={styles.textBtn}>Опублікувати</Text></TouchableOpacity>
-                </View>
-            </View>
-
+          <Text style={styles.textFoto}>Завантажити фото</Text>
+          <TextInput
+            onChangeText={(value) => {
+              setData((prevState) => ({
+                ...prevState,
+                name: value,
+              }));
+            }}
+            style={styles.inputCreate}
+            placeholder="Назва..."
+          />
+          <TextInput
+            onChangeText={(value) => {
+              setData((prevState) => ({
+                ...prevState,
+                location: value,
+              }));
+            }}
+            style={styles.inputCreatePin}
+            placeholder="Місцевість..."
+          />
+          <Image style={styles.pin} source={require("../img/map-pin.png")} />
+          <TouchableOpacity style={styles.btnExit}>
+            <Text style={styles.textBtn}>Опублікувати</Text>
+          </TouchableOpacity>
         </View>
-    );
+        <TouchableOpacity style={styles.delBtn}>
+          <Image source={require("../img/trash-2.png")} />
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
+  );
 };
-
-
-
