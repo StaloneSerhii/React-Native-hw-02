@@ -2,16 +2,14 @@
 import React, { useState } from "react";
 import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
 import styles from "./CreatePostsStyle";
-import { useNavigation } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
 
-export const CreatePostsScreen = () => {
+export const CreatePostsScreen = ({ navigation }) => {
   const [data, setData] = useState({
     foto: "",
     name: "",
     location: "",
   });
-
   return (
     <ScrollView style={styles.bg}>
       <View>
@@ -19,9 +17,9 @@ export const CreatePostsScreen = () => {
           <View style={styles.upLoadFoto}>
             <Image source={require("../img/foto.png")} />
           </View>
-
           <Text style={styles.textFoto}>Завантажити фото</Text>
           <TextInput
+            value={data.name}
             onChangeText={(value) => {
               setData((prevState) => ({
                 ...prevState,
@@ -32,6 +30,7 @@ export const CreatePostsScreen = () => {
             placeholder="Назва..."
           />
           <TextInput
+            value={data.location}
             onChangeText={(value) => {
               setData((prevState) => ({
                 ...prevState,
@@ -42,11 +41,31 @@ export const CreatePostsScreen = () => {
             placeholder="Місцевість..."
           />
           <Image style={styles.pin} source={require("../img/map-pin.png")} />
-          <TouchableOpacity style={styles.btnExit}>
-            <Text style={styles.textBtn}>Опублікувати</Text>
-          </TouchableOpacity>
+          {data.name ? (
+            <TouchableOpacity
+              style={styles.btnExit}
+              onPress={() => {
+                console.log("click");
+              }}
+            >
+              <Text style={styles.textBtn}>Опублікувати</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              disabled
+              style={{ ...styles.btnExit, backgroundColor: "#F6F6F6" }}
+              onPress={() => {
+                console.log("click");
+              }}
+            >
+              <Text style={styles.textBtn}>Опублікувати</Text>
+            </TouchableOpacity>
+          )}
         </View>
-        <TouchableOpacity style={styles.delBtn}>
+        <TouchableOpacity
+          style={styles.delBtn}
+          onPress={() => setData({ foto: "", name: "", location: "" })}
+        >
           <Image source={require("../img/trash-2.png")} />
         </TouchableOpacity>
       </View>

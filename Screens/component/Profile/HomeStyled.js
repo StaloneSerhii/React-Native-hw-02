@@ -5,12 +5,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
+  headerMap: {
+    marginTop: 147,
+    backgroundColor: "#fff",
+    flex: 1,
+  },
   header: {
-    flexDirection: "row",
-    justifyContent: "center",
-    columnGap: 100,
-    paddingBottom: 11,
-    marginBottom: 32,
+    marginTop: 32,
+    marginLeft: 16,
+    marginRight: 16,
   },
   headerText: {
     fontSize: 17,
@@ -18,11 +21,10 @@ const styles = StyleSheet.create({
   },
 
   user: {
-    flex: 2,
     flexDirection: "row",
     alignContent: "center",
     gap: 8,
-    marginLeft: 16,
+    marginBottom: 32,
   },
   nameUser: {
     fontSize: 13,
@@ -45,6 +47,42 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderRadius: 20,
     fontSize: 30,
+  },
+  blockImg: {
+    flexDirection: "column",
+  },
+  supBlockInf: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  textCom: {
+    color: "#BDBDBD",
+    fontSize: 16,
+  },
+  textLoc: {
+    color: "#212121",
+    fontSize: 16,
+    textDecorationLine: "underline",
+  },
+  imgMap: {
+    width: "100%",
+    borderRadius: 8,
+  },
+  userImg: {
+    width: 60,
+    borderRadius: 8,
+  },
+  userImgMap: {
+    position: "absolute",
+    top: -60,
+    left: "30%",
+    width: 120,
+    height: 120,
+  },
+  userMap: {
+    justifyContent: "center",
+    marginBottom: 32,
   },
 });
 

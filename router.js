@@ -1,10 +1,9 @@
-import "react-native-gesture-handler";
 import React from "react";
-import { Image, StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import { Feather, Ionicons, FontAwesome } from "@expo/vector-icons";
+import { Feather, Ionicons, AntDesign } from "@expo/vector-icons";
 
 import { LoginScreen } from "./Screens/component/Auth/LoginScreen";
 import { RegistrationScreen } from "./Screens/component/Auth/RegistrationScreen";
@@ -12,27 +11,12 @@ import { HomeScreen } from "./Screens/component/Profile/HomeScreen";
 import { CreatePostsScreen } from "./Screens/component/Profile/CreatePostsScreen";
 import { MapScreen } from "./Screens/component/Profile/MapScreen";
 import { View } from "react-native";
+import { Comments } from "./Screens/component/Profile/CommentsScreen";
 
 const AuthNavigator = createStackNavigator();
 const MaintTab = createBottomTabNavigator();
 
-export const useRoute = (isAuth) => {
-  if (!isAuth) {
-    return (
-      <AuthNavigator.Navigator>
-        <AuthNavigator.Screen
-          options={{ headerShown: false }}
-          name="Register"
-          component={RegistrationScreen}
-        />
-        <AuthNavigator.Screen
-          options={{ headerShown: false }}
-          name="Login"
-          component={LoginScreen}
-        />
-      </AuthNavigator.Navigator>
-    );
-  }
+function Home() {
   return (
     <MaintTab.Navigator
       initialRouteName={"Публікації"}
@@ -59,10 +43,9 @@ export const useRoute = (isAuth) => {
         }}
       />
       <MaintTab.Screen
-        name="Створити публцікацію"
+        name="Створити публікацію"
         component={CreatePostsScreen}
-        options={{
-          tabBarVisible: true,
+        options={({ route, navigation }) => ({
           tabBarIcon: ({ focused, size, color }) => {
             return (
               <View style={styles.add}>
@@ -70,7 +53,18 @@ export const useRoute = (isAuth) => {
               </View>
             );
           },
-        }}
+          headerLeft: ({ focused, size, color }) => (
+            <View style={styles.goSvgHome}>
+              <AntDesign
+                name="arrowleft"
+                size={24}
+                color="#212121"
+                onPress={() => navigation.navigate("Публікації")}
+              />
+            </View>
+          ),
+          tabBarStyle: { display: "none" }, // Приховати наступні екрани
+        })}
       />
       <MaintTab.Screen
         name="Мої Публікації"
@@ -83,13 +77,54 @@ export const useRoute = (isAuth) => {
               </View>
             );
           },
+          headerRight: () => (
+            <TouchableOpacity style={styles.out}>
+              <Feather name="log-out" size={24} color="#BDBDBD" />
+            </TouchableOpacity>
+          ),
+          headerShown: false,
         }}
       />
     </MaintTab.Navigator>
   );
+}
+
+export const useRoute = (isAuth) => {
+  if (!isAuth) {
+    return (
+      <AuthNavigator.Navigator>
+        <AuthNavigator.Screen
+          options={{ headerShown: false }}
+          name="Register"
+          component={RegistrationScreen}
+        />
+        <AuthNavigator.Screen
+          options={{ headerShown: false }}
+          name="Login"
+          component={LoginScreen}
+        />
+      </AuthNavigator.Navigator>
+    );
+  } else {
+    return (
+      <AuthNavigator.Navigator>
+        <AuthNavigator.Screen
+          options={{ headerShown: false }}
+          name="Register"
+          component={Home}
+        />
+        <AuthNavigator.Screen
+          options={{ headerTitleAlign: "center" }}
+          name="Коментарі"
+          component={Comments}
+        />
+      </AuthNavigator.Navigator>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
+  goSvgHome: { marginLeft: 16 },
   out: { marginRight: 10 },
   add: {
     width: 70,
@@ -127,7 +162,6 @@ const styles = StyleSheet.create({
       color: "#212121",
       fontFamily: "Roboto-Regular",
     },
-
     tabBarStyle: {
       height: 83,
       paddingTop: 9,
