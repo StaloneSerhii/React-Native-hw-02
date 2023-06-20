@@ -9,7 +9,7 @@ import { LoginScreen } from "./Screens/component/Auth/LoginScreen";
 import { RegistrationScreen } from "./Screens/component/Auth/RegistrationScreen";
 import { ProfileSreen } from "./Screens/component/Profile/ProfileSreen";
 import { CreatePostsScreen } from "./Screens/component/Profile/CreatePostsScreen";
-import { MapScreen } from "./Screens/component/Profile/ProfileSreen";
+import { HomeScreen } from "./Screens/component/Profile/HomeScreen";
 import { View } from "react-native";
 import { Comments } from "./Screens/component/Profile/CommentsScreen";
 
@@ -25,7 +25,7 @@ function Home() {
     >
       <MaintTab.Screen
         name="Публікації"
-        component={ProfileSreen}
+        component={HomeScreen}
         options={{
           headerTitleAlign: "center",
           tabBarIcon: ({ focused, size, color }) => {
