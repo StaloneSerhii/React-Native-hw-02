@@ -11,11 +11,11 @@ export const Comments = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image source={require("../img/test.png")} style={styles.imgMap} />
+        <Image source={require("../../img/test.png")} style={styles.imgMap} />
         <View style={styles.commBlock}>
           <Image
             style={styles.avatarCom}
-            source={require("../img/Ellipse.png")}
+            source={require("../../img/Ellipse.png")}
           />
           <View style={styles.blockCommUser}>
             <Text style={styles.blockCommUserText}>
