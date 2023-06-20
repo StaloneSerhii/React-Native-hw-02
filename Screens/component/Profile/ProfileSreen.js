@@ -5,7 +5,7 @@ import styles from "./HomeStyled";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { EvilIcons, AntDesign } from "@expo/vector-icons";
 
-export const MapScreen = () => {
+export const ProfileSreen = () => {
   return (
     <ImageBackground source={require("../img/BG.png")} style={styles.container}>
       <View style={styles.headerMap}>

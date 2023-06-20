@@ -28,7 +28,7 @@ export const LoginScreen = () => {
     "Roboto-Bold": require("../font/Roboto-Bold.ttf"),
     "Roboto-Regular": require("../font/Roboto-Regular.ttf"),
   });
-  const navigator = useNavigation()
+  const navigator = useNavigation();
 
   if (!fontsLoaded) {
     return null;
@@ -131,9 +131,11 @@ export const LoginScreen = () => {
                   // onPress={enterSub}
                   activeOpacity={0.8}
                   style={style.btnRegister}
-                  >
+                >
                   <Text
-                  onPress={()=>{navigator.navigate("HomeScreen")}}
+                    onPress={() => {
+                      navigator.navigate("Публікації");
+                    }}
                     style={{
                       ...style.Register,
                       fontFamily: "Roboto-Regular",
@@ -149,7 +151,7 @@ export const LoginScreen = () => {
                   style={style.btnExit}
                 >
                   <Text
-                  onPress={()=> navigator.navigate("Register")}
+                    onPress={() => navigator.navigate("Register")}
                     style={{
                       ...style.Exit,
                       fontFamily: "Roboto-Regular",

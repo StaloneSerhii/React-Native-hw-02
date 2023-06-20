@@ -7,9 +7,9 @@ import { Feather, Ionicons, AntDesign } from "@expo/vector-icons";
 
 import { LoginScreen } from "./Screens/component/Auth/LoginScreen";
 import { RegistrationScreen } from "./Screens/component/Auth/RegistrationScreen";
-import { HomeScreen } from "./Screens/component/Profile/HomeScreen";
+import { ProfileSreen } from "./Screens/component/Profile/ProfileSreen";
 import { CreatePostsScreen } from "./Screens/component/Profile/CreatePostsScreen";
-import { MapScreen } from "./Screens/component/Profile/MapScreen";
+import { MapScreen } from "./Screens/component/Profile/ProfileSreen";
 import { View } from "react-native";
 import { Comments } from "./Screens/component/Profile/CommentsScreen";
 
@@ -25,7 +25,7 @@ function Home() {
     >
       <MaintTab.Screen
         name="Публікації"
-        component={HomeScreen}
+        component={ProfileSreen}
         options={{
           headerTitleAlign: "center",
           tabBarIcon: ({ focused, size, color }) => {
@@ -68,7 +68,7 @@ function Home() {
       />
       <MaintTab.Screen
         name="Мої Публікації"
-        component={MapScreen}
+        component={ProfileSreen}
         options={{
           tabBarIcon: ({ focused, size, color }) => {
             return (
