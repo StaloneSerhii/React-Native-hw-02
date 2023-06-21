@@ -7,12 +7,13 @@ import { EvilIcons, AntDesign } from "@expo/vector-icons";
 
 export const ProfileSreen = ({ navigation, route }) => {
   const [posts, setPosts] = useState([]);
+
   useEffect(() => {
     if (route.params) {
       setPosts((prevState) => [...prevState, route.params]);
     }
   }, [route.params]);
-  console.log(posts);
+
   return (
     <ImageBackground
       source={require("../../img/BG.png")}
@@ -71,11 +72,11 @@ export const ProfileSreen = ({ navigation, route }) => {
                     <TouchableOpacity
                       style={{ flexDirection: "row" }}
                       onPress={() => {
-                        navigation.navigate("Карта");
+                        navigation.navigate("Карта", { item });
                       }}
                     >
                       <EvilIcons name="location" size={24} color="#BDBDBD" />
-                      <Text style={styles.textLoc}>{item.data.location}</Text>
+                      <Text style={styles.textLoc}>{item.data.nameMarker}</Text>
                     </TouchableOpacity>
                   </View>
                 </View>

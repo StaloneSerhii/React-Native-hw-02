@@ -14,6 +14,7 @@ export const CreatePostsScreen = ({ navigation }) => {
     foto: "",
     name: "",
     location: "",
+    nameMarker: "",
   });
 
   const takePhoto = async () => {
@@ -25,21 +26,23 @@ export const CreatePostsScreen = ({ navigation }) => {
       return;
     }
 
-    // let location = await Location.getCurrentPositionAsync({});
-    // const coords = {
-    //   latitude: location.coords.latitude,
-    //   longitude: location.coords.longitude,
-    // };
+    let location = await Location.getCurrentPositionAsync({});
+    const coords = {
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+    };
+    console.log(coords);
 
     setData((prevState) => ({
       ...prevState,
       foto: photo.uri,
-      // location: coords,
+      location: coords,
     }));
   };
 
   const sendFoto = () => {
     navigation.navigate("Мої Публікації", { data });
+    setData({ foto: "", name: "", location: "", nameMarker: "" });
   };
 
   return (
@@ -104,7 +107,7 @@ export const CreatePostsScreen = ({ navigation }) => {
             onChangeText={(value) => {
               setData((prevState) => ({
                 ...prevState,
-                location: value,
+                nameMarker: value,
               }));
             }}
             style={styles.inputCreatePin}
@@ -134,7 +137,9 @@ export const CreatePostsScreen = ({ navigation }) => {
         </View>
         <TouchableOpacity
           style={styles.delBtn}
-          onPress={() => setData({ foto: "", name: "", location: "" })}
+          onPress={() =>
+            setData({ foto: "", name: "", location: "", nameMarker: "" })
+          }
         >
           <Image source={require("../../img/trash-2.png")} />
         </TouchableOpacity>

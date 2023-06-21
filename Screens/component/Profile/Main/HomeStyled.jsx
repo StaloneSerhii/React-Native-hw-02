@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   supBlockInf: {
     flexDirection: "row",
     justifyContent: "space-between",
-    // alignItems: "center",
+    alignItems: "center",
   },
   textCom: {
     color: "#BDBDBD",
