@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   supBlockInf: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
+    // alignItems: "center",
   },
   textCom: {
     color: "#BDBDBD",
@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
   },
   imgMap: {
     width: "100%",
+    height: 250,
     borderRadius: 8,
   },
   userImg: {

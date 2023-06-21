@@ -1,9 +1,9 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { TouchableOpacity } from "react-native";
 import { Feather, Ionicons, AntDesign } from "@expo/vector-icons";
-import { ProfileSreen } from "./Screens/component/Profile/ProfileSreen";
-import { CreatePostsScreen } from "./Screens/component/Profile/CreatePostsScreen";
-import { HomeScreen } from "./Screens/component/Profile/HomeScreen";
+import { ProfileSreen } from "./Main/ProfileSreen";
+import { CreatePostsScreen } from "./Main/CreatePostsScreen";
+import { HomeScreen } from "./Main/HomeScreen";
 import { View } from "react-native";
 import { StyleSheet } from "react-native";
 

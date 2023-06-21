@@ -1,11 +1,6 @@
-import { Image } from "react-native";
-import { TextInput } from "react-native";
-import { Text } from "react-native";
-import { View } from "react-native";
+import { Image, Text, View, TextInput } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-
 import styles from "./CommentStyle";
-import { TouchableOpacity } from "react-native";
 
 export const Comments = () => {
   return (

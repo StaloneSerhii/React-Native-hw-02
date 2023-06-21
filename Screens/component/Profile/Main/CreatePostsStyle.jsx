@@ -17,6 +17,15 @@ const styles = StyleSheet.create({
     marginTop: 32,
     borderRadius: 8,
   },
+  photoFile: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#f6f6f629",
+    width: "100%",
+    height: 240,
+    marginTop: 32,
+    borderRadius: 8,
+  },
   textFoto: {
     color: "#BDBDBD",
     fontSize: 16,
